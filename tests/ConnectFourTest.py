@@ -25,6 +25,7 @@ def containsCorrectFunction(test):
     test.description = lambda : "Correct function found in source"
     test.fail = lambda info : "Check if your function has the correct name: make_move"
 
+@t.passed(containsCorrectFunction)
 @t.test(10)
 def fillsBoard(test):
 
