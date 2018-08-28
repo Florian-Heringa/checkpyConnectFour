@@ -49,42 +49,42 @@ def fillsBoard(test):
 @t.test(20)
 def canWinAGame(test):
 
-    num_games_won = 0
+    # num_games_won = 0
 
-    def test_method():
-        won = 0
-        for _ in range(100):
-            board = emptyBoard.copy()
+    # def test_method():
+    #     won = 0
+    #     for _ in range(100):
+    #         board = emptyBoard.copy()
 
-            while not CF.isBoardFull(board):
+    #         while not CF.isBoardFull(board):
 
-                while True:
-                    move = lib.getFunction("make_move", _fileName)(board.copy())
-                    if move.lower().startswith('q'):
-                        sys.exit()
-                    if not move.isdigit():
-                        continue
-                    move = int(move) - 1
-                    if CF.isValidMove(board, move):
-                        break
-                CF.makeMove(board, PLAYERTILE, move)
+    #             while True:
+    #                 move = lib.getFunction("make_move", _fileName)(board.copy())
+    #                 if move.lower().startswith('q'):
+    #                     sys.exit()
+    #                 if not move.isdigit():
+    #                     continue
+    #                 move = int(move) - 1
+    #                 if CF.isValidMove(board, move):
+    #                     break
+    #             CF.makeMove(board, PLAYERTILE, move)
 
-                if CF.isWinner(mainBoard, PLAYERTILE):
-                    winner = winner + 1
-                    break
+    #             if CF.isWinner(mainBoard, PLAYERTILE):
+    #                 winner = winner + 1
+    #                 break
 
-                CF.getComputerMove()
-                CF.makeMove(mainBoard, COMPUTERTILE, move)
-                if CF.isWinner(mainBoard, COMPUTERTILE):
-                    break
+    #             CF.getComputerMove()
+    #             CF.makeMove(mainBoard, COMPUTERTILE, move)
+    #             if CF.isWinner(mainBoard, COMPUTERTILE):
+    #                 break
 
-        return won > 1, 100
+    #     return won > 1, 100
 
-    def testTest():
-        return False, 0
+    # def testTest():
+    #     return False, 0
 
-    test.test = lambda : testTest
+    test.test = lambda : False
     test.description = lambda : "Your algorithm can win a game"
     test.fail = lambda info : "Check your algorithm for mistakes"
-    test.success = lambda info : "You won {0} games out of 100".format(info)
+    test.success = lambda info : "You won {0} games out of 100".format(0)
     test.timeout = lambda : 60
