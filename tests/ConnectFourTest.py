@@ -46,3 +46,47 @@ def fillsBoard(test):
     test.description = lambda : "Fills board completely when playing alone"
     test.fail = lambda info : "Check if your function completely fills the board when no opponent is present"
     test.timeout = lambda : 30
+
+@t.passed(fillsBoard)
+@t.test(20)
+def canWinAGame(test):
+
+    # num_games_won = 0
+
+    # def test_method():
+    #     won = 0
+    #     for _ in range(100):
+    #         board = emptyBoard.copy()
+
+    #         while not CF.isBoardFull(board):
+
+    #             while True:
+    #                 move = lib.getFunction("make_move", _fileName)(board.copy())
+    #                 if move.lower().startswith('q'):
+    #                     sys.exit()
+    #                 if not move.isdigit():
+    #                     continue
+    #                 move = int(move) - 1
+    #                 if CF.isValidMove(board, move):
+    #                     break
+    #             CF.makeMove(board, PLAYERTILE, move)
+
+    #             if CF.isWinner(mainBoard, PLAYERTILE):
+    #                 winner = winner + 1
+    #                 break
+
+    #             CF.getComputerMove()
+    #             CF.makeMove(mainBoard, COMPUTERTILE, move)
+    #             if CF.isWinner(mainBoard, COMPUTERTILE):
+    #                 break
+
+    #     return won > 1, 100
+
+    # def testTest():
+    #     return False, 0
+
+    test.test = lambda : False
+    test.description = lambda : "Your algorithm can win a game"
+    test.fail = lambda info : "Check your algorithm for mistakes"
+    test.success = lambda info : "You won {0} games out of 100".format(0)
+    test.timeout = lambda : 60
