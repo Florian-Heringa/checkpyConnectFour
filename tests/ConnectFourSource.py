@@ -6,8 +6,23 @@ import random
 import copy
 import sys
 
+import checkpy.tests as t
+import checkpy.lib as lib
+import checkpy.assertlib as assertlib
+import importlib
+
+############################# Variables
+
 BOARDWIDTH = 7
 BOARDHEIGHT = 6
+
+PLAYERTILE = 'X'
+COMPUTERTILE = 'O'
+
+emptyBoard = [[' ' for y in range(BOARDWIDTH)] for x in range(BOARDHEIGHT)]
+filledBoard = [[PLAYERTILE for y in range(BOARDWIDTH)] for x in range(BOARDHEIGHT)]
+
+##################################### Connect Four info
 
 def main():
     """
