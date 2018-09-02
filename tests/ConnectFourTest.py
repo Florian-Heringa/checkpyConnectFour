@@ -5,23 +5,56 @@ import importlib
 
 import ConnectFourSource as CF
 
-BOARDWIDTH = 7
-BOARDHEIGHT = 6
+############################## Test functions
 
-PLAYERTILE = 'X'
-COMPUTERTILE = 'O'
+def fillsBoardTestFunction():
+    board = CF.emptyBoard.copy()
+    for i in range(CF.BOARDWIDTH * CF.BOARDHEIGHT):
+        while True:
+            # Give copy of the board so it cannot be edited by the student
+            column = lib.getFunction("make_move", _fileName)(board.copy())
+            if CF.isValidMove(board, column):
+                break
 
-emptyBoard = [[' ' for y in range(BOARDWIDTH)] for x in range(BOARDHEIGHT)]
-filledBoard = [[PLAYERTILE for y in range(BOARDWIDTH)] for x in range(BOARDHEIGHT)]
+    makeMove(board, CF.PLAYERTILE, column)
+
+    return CF.isBoardFull(CF.emptyBoard)
+    
+def canWinAGameTestFunction():
+    won = 0
+    for game in range(100):
+        print(game)
+        board = CF.emptyBoard.copy()
+
+        while not CF.isBoardFull(board):
+
+            while True:
+                move = lib.getFunction("make_move", _fileName)(board.copy())
+                if move.lower().startswith('q'):
+                    sys.exit()
+                if not move.isdigit():
+                    continue
+                move = int(move) - 1
+                if CF.isValidMove(board, move):
+                    break
+            CF.makeMove(board, PLAYERTILE, move)
+
+            if CF.isWinner(mainBoard, PLAYERTILE):
+                winner = winner + 1
+                break
+
+            CF.getComputerMove()
+            CF.makeMove(mainBoard, CF.COMPUTERTILE, move)
+            if CF.isWinner(mainBoard, CF.COMPUTERTILE):
+                break
+
+    return won >= 1, won
 
 ###################### Tests
 @t.test(0)
 def containsCorrectFunction(test):
 
-    def test_method():
-        return assertlib.fileContainsFunctionDefinitions(_fileName, "make_move")
-
-    test.test = lambda : test_method
+    test.test = lambda : assertlib.fileContainsFunctionDefinitions(_fileName, "make_move")
     test.description = lambda : "Correct function found in source"
     test.fail = lambda info : "Check if your function has the correct name: make_move"
 
@@ -29,20 +62,7 @@ def containsCorrectFunction(test):
 @t.test(10)
 def fillsBoard(test):
 
-    def test_method():
-        board = emptyBoard.copy()
-        for i in range(BOARDWIDTH * BOARDHEIGHT):
-            while True:
-                # Give copy of the board so it cannot be edited by the student
-                column = lib.getFunction("make_move", _fileName)(board.copy())
-                if CF.isValidMove(board, column):
-                    break
-
-        CF.makeMove(board, PLAYERTILE, column)
-
-        return CF.isBoardFull(board)
-
-    test.test = lambda : test_method
+    test.test = lambda : fillsBoardTestFunction
     test.description = lambda : "Fills board completely when playing alone"
     test.fail = lambda info : "Check if your function completely fills the board when no opponent is present"
     test.timeout = lambda : 30
@@ -51,42 +71,8 @@ def fillsBoard(test):
 @t.test(20)
 def canWinAGame(test):
 
-    # num_games_won = 0
-
-    # def test_method():
-    #     won = 0
-    #     for _ in range(100):
-    #         board = emptyBoard.copy()
-
-    #         while not CF.isBoardFull(board):
-
-    #             while True:
-    #                 move = lib.getFunction("make_move", _fileName)(board.copy())
-    #                 if move.lower().startswith('q'):
-    #                     sys.exit()
-    #                 if not move.isdigit():
-    #                     continue
-    #                 move = int(move) - 1
-    #                 if CF.isValidMove(board, move):
-    #                     break
-    #             CF.makeMove(board, PLAYERTILE, move)
-
-    #             if CF.isWinner(mainBoard, PLAYERTILE):
-    #                 winner = winner + 1
-    #                 break
-
-    #             CF.getComputerMove()
-    #             CF.makeMove(mainBoard, COMPUTERTILE, move)
-    #             if CF.isWinner(mainBoard, COMPUTERTILE):
-    #                 break
-
-    #     return won > 1, 100
-
-    # def testTest():
-    #     return False, 0
-
-    test.test = lambda : False
+    test.test = lambda : canWinAGameTestFunction
     test.description = lambda : "Your algorithm can win a game"
     test.fail = lambda info : "Check your algorithm for mistakes"
-    test.success = lambda info : "You won {0} games out of 100".format(0)
-    test.timeout = lambda : 60
+    test.success = lambda info : "You won {0} games out of 100".format(info)
+    test.timeout = lambda : 1
